@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class PersistenceManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public static PersistenceManager Instance;
+    public int bestScore;
+    public string playerNameBestScore;
+    public string playerName;
+
+    private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
+        bestScore = 0;
+        playerNameBestScore = "Someone";
     }
 }

@@ -1749,3 +1749,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13530346c7ddcb1498cee101877af392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textBestScoreAndPlayerName: {fileID: 2078529056}
