@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class PersistenceManager : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class PersistenceManager : MonoBehaviour
     public int bestScore;
     public string playerNameBestScore;
     public string playerName;
-    
+    public ListSaveData listData;
+
     public string savefileName = "savefile.json";
+    public string savefileName2 = "savefile2.json";
+    public int maxBestScore = 3;
 
     private void Awake()
     {
@@ -20,24 +24,34 @@ public class PersistenceManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+
+
         bestScore = 0;
         playerNameBestScore = "Someone";
+        listData = new ListSaveData();
+        listData.data = new List<SaveData>();
 
-        LoadScoreAndName();
-        Debug.Log(bestScore + "   " + playerNameBestScore);
+        // LoadScoreAndName();
+        LoadScoreAndName2();
     }
-    
+
     [System.Serializable]
-    class SaveData
+    public class SaveData
     {
         public int bestScore;
         public string playerNameBestScore;
     }
-    
+
+
+    [System.Serializable]
+    public class ListSaveData
+    {
+        public List<SaveData> data;
+    }
+
     public void SaveScoreAndName()
     {
         SaveData data = new SaveData();
@@ -45,10 +59,10 @@ public class PersistenceManager : MonoBehaviour
         data.playerNameBestScore = playerNameBestScore;
 
         string json = JsonUtility.ToJson(data);
-        
+
         File.WriteAllText(Application.persistentDataPath + "/" + savefileName, json);
     }
-    
+
     public void LoadScoreAndName()
     {
         string path = Application.persistentDataPath + "/" + savefileName;
@@ -59,6 +73,39 @@ public class PersistenceManager : MonoBehaviour
 
             bestScore = data.bestScore;
             playerNameBestScore = data.playerNameBestScore;
+        }
+    }
+
+    public void SaveScoreAndName2()
+    {
+        SaveData data = new SaveData();
+
+        data.bestScore = bestScore;
+        data.playerNameBestScore = playerNameBestScore;
+
+        if (listData.data != null && listData.data.Count >= maxBestScore)
+        {
+            listData.data.RemoveAt(0);
+        }
+        listData.data.Add(data);
+        Debug.Log(listData.data.Count);
+        string json = JsonUtility.ToJson(listData);
+
+        File.WriteAllText(Application.persistentDataPath + "/" + savefileName2, json);
+    }
+
+    public void LoadScoreAndName2()
+    {
+        string path = Application.persistentDataPath + "/" + savefileName2;
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            
+             
+            listData = JsonUtility.FromJson<ListSaveData>(json);
+
+            bestScore = listData.data.Last().bestScore;
+            playerNameBestScore = listData.data.Last().playerNameBestScore;
         }
     }
 }

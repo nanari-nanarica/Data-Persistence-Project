@@ -34,7 +34,6 @@ public class MenuUIHandler : MonoBehaviour
 
     public void Exit()
     {
-        PersistenceManager.Instance.SaveScoreAndName();
 
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
@@ -44,12 +43,18 @@ public class MenuUIHandler : MonoBehaviour
     }
 
 
+    public void GoRanking()
+    {
+        SceneManager.LoadScene(2);
+    }
+    
+
     public void GetPlayerName()
     {
         PersistenceManager.Instance.playerName = field.text;
 
 #if UNITY_EDITOR
-        Debug.Log(PersistenceManager.Instance.playerName);
+//        Debug.Log(PersistenceManager.Instance.playerName);
 #endif
     }
 }
