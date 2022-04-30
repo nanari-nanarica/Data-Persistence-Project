@@ -76,7 +76,7 @@ public class MainManager : MonoBehaviour
             {
                 PersistenceManager.Instance.bestScore = m_Points;
                 PersistenceManager.Instance.playerNameBestScore = PersistenceManager.Instance.playerName;
-                PersistenceManager.Instance.SaveScoreAndName();
+                // PersistenceManager.Instance.SaveScoreAndName();
                 PersistenceManager.Instance.SaveScoreAndName2();
             }
         }
