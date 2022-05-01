@@ -12,6 +12,10 @@ public class PersistenceManager : MonoBehaviour
     public string playerNameBestScore;
     public string playerName;
     public ListSaveData listData;
+    
+    public int maxLine = 6;
+    public float paddleSpeed = 2.0f;
+    public float accel = 0.01f;
 
     public string savefileName = "savefile.json";
     public string savefileName2 = "savefile2.json";
@@ -33,6 +37,8 @@ public class PersistenceManager : MonoBehaviour
         playerNameBestScore = "Someone";
         listData = new ListSaveData();
         listData.data = new List<SaveData>();
+        
+
 
         // LoadScoreAndName();
         LoadScoreAndName2();

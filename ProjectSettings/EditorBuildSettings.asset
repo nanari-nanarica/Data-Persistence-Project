@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/score_ranking.unity
     guid: 039264165b179af47b4a241d7cc1c735
+  - enabled: 1
+    path: Assets/Scenes/difficulty.unity
+    guid: 4d4850a963afe7c4f896f07233d695a1
   m_configObjects: {}

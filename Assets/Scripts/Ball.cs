@@ -6,10 +6,13 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private Rigidbody m_Rigidbody;
+    
+    public float accel = 0.01f;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        accel = PersistenceManager.Instance.accel;
     }
     
     private void OnCollisionExit(Collision other)
@@ -17,7 +20,7 @@ public class Ball : MonoBehaviour
         var velocity = m_Rigidbody.velocity;
         
         //after a collision we accelerate a bit
-        velocity += velocity.normalized * 0.01f;
+        velocity += velocity.normalized * accel;
         
         //check if we are not going totally vertically as this would lead to being stuck, we add a little vertical force
         if (Vector3.Dot(velocity.normalized, Vector3.up) < 0.1f)

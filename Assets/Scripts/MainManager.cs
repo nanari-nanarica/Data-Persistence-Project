@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MainManager : MonoBehaviour
 {
     public Brick BrickPrefab;
-    public int LineCount = 6;
+    public int LineCount;
     public Rigidbody Ball;
 
     public Text ScoreText;
@@ -18,14 +18,16 @@ public class MainManager : MonoBehaviour
 
     private bool m_GameOver = false;
 
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
     {
+        LineCount = Mathf.FloorToInt(PersistenceManager.Instance.maxLine);
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
 
-        int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5 };
+        int[] pointCountArray = new[] { 1, 1, 2, 2, 5, 5, 7, 7, 9, 9};
         for (int i = 0; i < LineCount; ++i)
         {
             for (int x = 0; x < perLine; ++x)
